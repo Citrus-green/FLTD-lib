@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FLTD_lib
 {
-    class BinaryIOHelper:IDisposable
+    internal class BinaryIOHelper:IDisposable
     {
         private FileStream fs;
         private long skip;

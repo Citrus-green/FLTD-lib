@@ -1,6 +1,6 @@
 ﻿namespace FLTD_lib
 {
-	class stfltd
+	internal class stfltd
 	{
 		public byte idk0;
 		public byte count_addr0;
@@ -47,7 +47,7 @@
 		}
 	};
 
-	class fltd_data0
+	internal class fltd_data0
 	{
 		public stfltd parent;
 
@@ -100,7 +100,7 @@
 		}
 	};
 
-	class fltd_data1
+	internal class fltd_data1
 	{
 		public stfltd parent;
 
@@ -162,7 +162,7 @@
 		}
 	};
 
-	class fltd_data2
+	internal class fltd_data2
 	{
 		public stfltd parent;
 		public uint value0; // 0x0
@@ -186,7 +186,7 @@
 		}
 	};
 
-	class fltd_data3
+	internal class fltd_data3
 	{
 		public fltd_data0 parent;
 
@@ -240,7 +240,7 @@
 		}
 	};
 
-	class fltd_data4
+	internal class fltd_data4
 	{
 		public fltd_data1 parent;
 
@@ -257,7 +257,7 @@
 		}
 	};
 
-	class fltd_data5
+	internal class fltd_data5
 	{
 		public fltd_data1 parent;
 
@@ -356,7 +356,7 @@
 		}
 	};
 
-	class fltd_data6
+	internal class fltd_data6
 	{
 		public fltd_data1 parent;
 		public uint reserve;
@@ -376,7 +376,7 @@
 		}
 	};
 
-	class fltd_data7
+	internal class fltd_data7
 	{
 		public fltd_data5 parent;
 
@@ -393,7 +393,7 @@
 		}
 	};
 
-	class fltd_data8
+	internal class fltd_data8
 	{
 		public fltd_data5 parent;
 
@@ -428,7 +428,7 @@
 		}
 	};
 
-	class fltd_data9
+	internal class fltd_data9
 	{
 		public fltd_data5 parent;
 
@@ -463,7 +463,7 @@
 		}
 	};
 
-	class fltd_data10
+	internal class fltd_data10
 	{
 		public fltd_data5 parent;
 
@@ -496,7 +496,7 @@
 		}
 	};
 
-	class fltd_data11
+	internal class fltd_data11
 	{
 		public fltd_data5 parent;
 
@@ -515,7 +515,7 @@
 		}
 	};
 
-	class fltd_data12
+	internal class fltd_data12
 	{
 		public fltd_data5 parent;
 
@@ -557,7 +557,7 @@
 		}
 	};
 
-	class fltd_data13
+	internal class fltd_data13
 	{
 		public fltd_data12 parent;
 
@@ -582,7 +582,7 @@
 		}
 	};
 
-	class fltd_data14
+	internal class fltd_data14
 	{
 		public uint reserve0;
 		public uint value0;

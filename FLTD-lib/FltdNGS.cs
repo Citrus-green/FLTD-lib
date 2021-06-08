@@ -7,13 +7,14 @@ using System.IO;
 
 namespace FLTD_lib
 {
-	unsafe public class FltdNGS
+	public class FltdNGS
 	{
 
 		private stfltd data_array;
 		private StNIFL mStNIFL;
 
-		public FltdNGS() {
+		public FltdNGS()
+		{
 
 		}
 		public void loadFile(String path)
@@ -26,7 +27,8 @@ namespace FLTD_lib
 				data_array = new stfltd(fp);
 			}
 		}
-		private void readStFltd(BinaryReader fp) {
+		private void readStFltd(BinaryReader fp)
+		{
 
 		}
 		public string[] GetAssignList()
@@ -37,13 +39,14 @@ namespace FLTD_lib
 			return str;
 		}
 		public string[] GetRootMode(int index)
-        {
+		{
 			return data_array.data0[index].nameList;
 		}
-		public string[] GetConstraintList(int index) {
+		public string[] GetConstraintList(int index)
+		{
 			string[] nameList = new string[data_array.data0[index].count_addr1];
-			for(int i=0;i< data_array.data0[index].count_addr1; i++)
-            {
+			for (int i = 0; i < data_array.data0[index].count_addr1; i++)
+			{
 				nameList[i] = data_array.data0[index].data3[i].name;
 			}
 			return nameList;
