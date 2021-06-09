@@ -50,6 +50,22 @@ namespace FLTD_lib
 				fp.SkipSeek((int)fltd_data2_addr);
 				data2 = new NGS.fltd_data2(fp, this);
 			}
+			else {
+				data0 = new Classic.fltd_data0[count_addr0];
+				data1 = new Classic.fltd_data1[count_addr1];
+				for (int i = 0; i < count_addr0; i++)
+				{
+					fp.SkipSeek((int)fltd_data0_addr + Classic.fltd_data0.GetMyDataSize() * i);
+					data0[i] = new Classic.fltd_data0(fp, this);
+				}
+				for (int i = 0; i < count_addr1; i++)
+				{
+					fp.SkipSeek((int)fltd_data1_addr + Classic.fltd_data1.GetMyDataSize() * i);
+					data1[i] = new Classic.fltd_data1(fp, this);
+				}
+				fp.SkipSeek((int)fltd_data2_addr);
+				data2 = new Classic.fltd_data2(fp, this);
+			}
 		}
 		static public int GetMyDataSize()
 		{

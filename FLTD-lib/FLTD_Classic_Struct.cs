@@ -150,7 +150,7 @@
 				idk2 = fp.ReadUInt8();
 				idk3 = fp.ReadUInt8();
 
-				for (int i = 0; i < 0xe; i++)
+				for (int i = 0; i < 0xa; i++)
 					value0[i] = fp.ReadFloat();
 
 				name_address0 = fp.ReadUInt32();
