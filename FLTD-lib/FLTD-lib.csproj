@@ -44,9 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryIOHelper.cs" />
-    <Compile Include="FltdNGS.cs" />
+    <Compile Include="FLTD_Classic_Struct.cs" />
+    <Compile Include="FLTD.cs" />
     <Compile Include="NIFL_Struct.cs" />
-    <Compile Include="FLTD_Struct.cs" />
+    <Compile Include="FLTD_NGS_Struct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
