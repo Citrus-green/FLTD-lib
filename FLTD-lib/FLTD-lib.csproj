@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryIOHelper.cs" />
+    <Compile Include="DumpData.cs" />
     <Compile Include="FLTD_Classic_Struct.cs" />
     <Compile Include="FLTD.cs" />
     <Compile Include="NIFL_Struct.cs" />

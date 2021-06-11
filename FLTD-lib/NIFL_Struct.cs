@@ -64,6 +64,7 @@ namespace FLTD_lib
 		public uint size;
 		public uint count;
 		public uint[] addresses;
+		public uint[] orgAddresses;
 
 		public NOF0(BinaryIOHelper fp) {
 			tag = fp.ReadUInt32();
@@ -74,10 +75,12 @@ namespace FLTD_lib
 			for(int i=0;i<count;i++)
 				addresses[i]= fp.ReadUInt32();
 		}
-		public void recoveryOriginalAddress(uint offset)
+		public uint[] GetOriginalAddresses(uint offset)
         {
+			uint[] buf = new uint[addresses.Length];
 			for (int i = 0; i < count; i++)
-				addresses[i] += offset;
+				buf[i]= addresses[i] + offset;
+			return buf;
 		}
 	};
 }

@@ -77,7 +77,7 @@ namespace FLTD_lib
 		}
 	};
 
-	public class FLTD
+	public partial class FLTD
 	{
 		
 		private StFltd data_array;
