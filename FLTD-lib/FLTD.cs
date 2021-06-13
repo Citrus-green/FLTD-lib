@@ -116,7 +116,7 @@ namespace FLTD_lib
 				str[i] = ((Classic.fltd_data0)data_array.data0[i]).nameList[0];
 			return str;
 		}
-		public string[] GetRootMode(int index)
+		public string[] GetRootNode(int index)
 		{
 			if (data_array.IsNGS() == true)
 				return ((NGS.fltd_data0)data_array.data0[index]).nameList;
@@ -131,7 +131,7 @@ namespace FLTD_lib
 				string[] nameList = new string[data0.count_addr1];
 				for (int i = 0; i < data0.count_addr1; i++)
 				{
-					nameList[i] = data0.data3[i].name;
+					nameList[i] = data0.data3[i].name0;
 				}
 				return nameList;
 			}

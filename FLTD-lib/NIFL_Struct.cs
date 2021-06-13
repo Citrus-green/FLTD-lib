@@ -16,7 +16,7 @@ namespace FLTD_lib
 			fp.Seek((int)mNIFL.rel0_offset, 0);
 			mREL0 = new REL0(fp);
 			fp.Seek((int)mNIFL.nof0_offset, 0);
-			mNOF0 = new NOF0(fp);
+			mNOF0 = new NOF0(fp,mNIFL.rel0_offset);
 		}
     }
 	class NIFL
@@ -66,7 +66,7 @@ namespace FLTD_lib
 		public uint[] addresses;
 		public uint[] orgAddresses;
 
-		public NOF0(BinaryIOHelper fp) {
+		public NOF0(BinaryIOHelper fp,uint offset) {
 			tag = fp.ReadUInt32();
 			size = fp.ReadUInt32();
 			count = fp.ReadUInt32();
@@ -74,6 +74,14 @@ namespace FLTD_lib
 			addresses = new uint[count];
 			for(int i=0;i<count;i++)
 				addresses[i]= fp.ReadUInt32();
+			orgAddresses = this.GetOriginalAddresses(offset);
+			for (int i = 0; i < count; i++)
+			{
+				fp.Seek((int)orgAddresses[i],SeekOrigin.Begin);
+				orgAddresses[i] = fp.ReadUInt32();
+			}
+
+
 		}
 		public uint[] GetOriginalAddresses(uint offset)
         {

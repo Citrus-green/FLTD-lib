@@ -109,6 +109,7 @@
 					fp.SkipSeek((int)fltd_data5_addr + fltd_data5.GetMyDataSize() * i);
 					data5[i] = new fltd_data5(fp, this);
 				}
+				fp.SkipSeek((int)fltd_data6_addr);
 				data6 = new fltd_data6(fp, this);
 			}
 
@@ -157,12 +158,13 @@
 			public uint name_address0; // relation??
 			public uint address1; // go to reserve
 			public uint address2; // go to reserve
-			public uint address3; // go name address address (relation??)
+			public uint name_address1; // go name address address (relation??)
 
 			public uint value5; // 0x6401
 			public uint value6; // 0x10
 
-			public string name;
+			public string name0;
+			public string name1;
 
 			public fltd_data3(BinaryIOHelper fp, fltd_data0 parent)
 			{
@@ -182,12 +184,15 @@
 				name_address0 = fp.ReadUInt32();
 				address1 = fp.ReadUInt32();
 				address2 = fp.ReadUInt32();
-				address3 = fp.ReadUInt32();
+				name_address1 = fp.ReadUInt32();
 				value5 = fp.ReadUInt32();
 				value6 = fp.ReadUInt32();
 
 				fp.SkipSeek((int)name_address0);
-				name = fp.ReadAscii();
+				name0 = fp.ReadAscii();
+				fp.SkipSeek((int)name_address1);
+				fp.SkipSeek((int)fp.ReadUInt32());
+				name1 = fp.ReadAscii();
 			}
 
 			static public int GetMyDataSize()
@@ -360,7 +365,7 @@
 
 			public uint reserve0;
 			public uint reserve1;
-			public uint reserve2;
+			public uint value2;
 
 			public uint value0;
 			public uint value1; // (!value0)?0x28:0x5a
@@ -374,7 +379,7 @@
 				idk3 = fp.ReadUInt8();
 				reserve0 = fp.ReadUInt32();
 				reserve1 = fp.ReadUInt32();
-				reserve2 = fp.ReadUInt32();
+				value2 = fp.ReadUInt32();
 				value0 = fp.ReadUInt32();
 				value1 = fp.ReadUInt32();
 			}
@@ -415,7 +420,7 @@
 			}
 			static public int GetMyDataSize()
 			{
-				return sizeof(byte) * 4 + sizeof(uint) * 6;
+				return sizeof(byte) * 4 + sizeof(uint) * 5;
 			}
 		};
 
@@ -540,23 +545,23 @@
 
 		internal class fltd_data14
 		{
-			public uint reserve0;
 			public uint value0;
+			public uint value1;
 
-			public uint reserve1;
+			public uint value2;
 			public uint reserve2;
-			public uint value1; // 0x10
+			public uint value3; // 0x10
 
 			public fltd_data12 parent;
 
 			public fltd_data14(BinaryIOHelper fp, fltd_data12 parent)
 			{
 				this.parent = parent;
-				reserve0 = fp.ReadUInt32();
 				value0 = fp.ReadUInt32();
-				reserve1 = fp.ReadUInt32();
-				reserve2 = fp.ReadUInt32();
 				value1 = fp.ReadUInt32();
+				value2 = fp.ReadUInt32();
+				reserve2 = fp.ReadUInt32();
+				value3 = fp.ReadUInt32();
 			}
 			static public int GetMyDataSize()
 			{
