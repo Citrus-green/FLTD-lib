@@ -59,7 +59,7 @@
 			public StFltd parent;
 
 			public byte idk0; // 0x1f
-			public byte data11_count; // in fltd_data12
+			public byte data10_count; // in fltd_data12
 			public byte idk2;
 			public byte idk3;
 			public byte count_addr0;
@@ -81,7 +81,7 @@
 			{
 				this.parent = parent;
 				idk0 = fp.ReadUInt8();
-				data11_count = fp.ReadUInt8();
+				data10_count = fp.ReadUInt8();
 				idk2 = fp.ReadUInt8();
 				idk3 = fp.ReadUInt8();
 				count_addr0 = fp.ReadUInt8();
@@ -349,8 +349,8 @@
 		internal class fltd_data9
 		{
 			public fltd_data4 parent;
-			public uint fltd_data10_addr;
-			public uint fltd_data11_addr;
+			public uint fltd_data10_addr; // fltd_data1->count_fltd_data13
+			public uint fltd_data11_addr; // fltd_data5->count_addr3
 			public uint reserve;
 			public uint value0;
 
@@ -366,14 +366,14 @@
 				value0 = fp.ReadUInt32();
 
 
-				data10 = new fltd_data10[parent.count3];
-				for (int i = 0; i < parent.count3; i++)
+				data10 = new fltd_data10[parent.parent.data10_count];
+				for (int i = 0; i < parent.parent.data10_count; i++)
 				{
 					fp.SkipSeek((int)fltd_data10_addr + fltd_data10.GetMyDataSize() * i);
 					data10[i] = new fltd_data10(fp, this);
 				}
-				data11 = new fltd_data11[this.parent.parent.data11_count];
-				for (int i = 0; i < this.parent.parent.data11_count; i++)
+				data11 = new fltd_data11[this.parent.count3];
+				for (int i = 0; i < this.parent.count3; i++)
 				{
 					fp.SkipSeek((int)fltd_data11_addr + fltd_data11.GetMyDataSize() * i);
 					data11[i] = new fltd_data11(fp, this);

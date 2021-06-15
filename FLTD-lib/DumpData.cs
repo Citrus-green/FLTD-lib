@@ -390,7 +390,7 @@ namespace FLTD_lib
                         fp.WriteLine($"***** {i:X4}({i}) *****");
                         fp.WriteLine($"real address         = [{mStNIFL.mNIFL.rel0_offset + data_array.fltd_data1_addr + i * Classic.fltd_data0.GetMyDataSize():X8}]\n");
                         fp.WriteLine($"index                = [{data1[i].idk0:X8}]");
-                        fp.WriteLine($"name address count   = [{data1[i].data11_count:X8}]");
+                        fp.WriteLine($"name address count   = [{data1[i].data10_count:X8}]");
                         fp.WriteLine($"idk2                 = [{data1[i].idk2:X8}]");
                         fp.WriteLine($"idk3                 = [{data1[i].idk3:X8}]");
                         fp.WriteLine($"count_addr0          = [{data1[i].count_addr0:X8}]");
