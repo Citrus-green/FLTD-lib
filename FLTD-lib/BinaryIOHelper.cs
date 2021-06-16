@@ -27,6 +27,14 @@ namespace FLTD_lib
         {
             return (byte)fs.ReadByte();
         }
+        public ushort ReadUInt16()
+        {
+            byte[] buf = new byte[sizeof(ushort)];
+            fs.Read(buf, 0, sizeof(ushort));
+            if (littleEdian)
+                Array.Reverse(buf);
+            return BitConverter.ToUInt16(buf, 0);
+        }
         public uint ReadUInt32()
         {
             byte[] buf = new byte[sizeof(uint)];

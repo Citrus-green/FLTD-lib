@@ -140,7 +140,12 @@ namespace FLTD_lib
                             fp.WriteLine($"hasSecondName      = [{data0[h].data3[i].hasSecondName:X8}]");
                             fp.WriteLine($"value5             = [{data0[h].data3[i].value5:X8}]");
                             fp.WriteLine($"reserve2           = [{data0[h].data3[i].reserve2:X8}]");
-                            fp.WriteLine($"value6             = [{data0[h].data3[i].address4:X8}]");
+                            fp.WriteLine($"address4           = [{data0[h].data3[i].address4:X8}]");
+                            fp.WriteLine($"unknown data and address");
+                            for (int k = 0; k < data0[h].data3[i].count_addr1; k++) {
+
+                                fp.WriteLine($"[{data0[h].data3[i].address1+i:X8}]:[{data0[h].data3[i].unknown[i]:X8}]");
+                            }
                             fp.WriteLine("");
                         }
                     }
