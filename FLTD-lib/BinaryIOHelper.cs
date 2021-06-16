@@ -1,9 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FLTD_lib
 {
@@ -97,6 +93,7 @@ namespace FLTD_lib
             }
         }
         public long Tell() => fs.Position;
+        public long GetSkip() => this.skip;
         public void SetSkip(long offset)
         {
             skip = offset;

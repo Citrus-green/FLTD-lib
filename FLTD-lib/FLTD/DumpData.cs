@@ -120,8 +120,8 @@ namespace FLTD_lib
                             fp.WriteLine($"***** {i:X4}({i}) *****");
                             fp.WriteLine($"real address       = [{mStNIFL.mNIFL.rel0_offset + data0[h].fltd_data3_addr + i * NGS.fltd_data3.GetMyDataSize():X8}]\n");
                             fp.WriteLine($"unk0               = [{data0[h].data3[i].idk0:X8}]");
-                            fp.WriteLine($"unk1               = [{data0[h].data3[i].idk1:X8}]");
-                            fp.WriteLine($"unk2               = [{data0[h].data3[i].idk2:X8}]");
+                            fp.WriteLine($"addr1 count        = [{data0[h].data3[i].count_addr1:X8}]");
+                            fp.WriteLine($"addr2 count        = [{data0[h].data3[i].idk2:X8}]");
                             fp.WriteLine($"unk3               = [{data0[h].data3[i].idk3:X8}]");
                             fp.WriteLine($"value0             =");
                             for (int k = 0; k < 0xe; k++)
@@ -137,8 +137,10 @@ namespace FLTD_lib
                             fp.WriteLine($"address2           = [{data0[h].data3[i].address2:X8}]");
                             fp.WriteLine($"name_offset_offset = [{data0[h].data3[i].name_address1:X8}]({data0[h].data3[i].name1})");
 
+                            fp.WriteLine($"hasSecondName      = [{data0[h].data3[i].hasSecondName:X8}]");
                             fp.WriteLine($"value5             = [{data0[h].data3[i].value5:X8}]");
-                            fp.WriteLine($"value6             = [{data0[h].data3[i].value6:X8}]");
+                            fp.WriteLine($"reserve2           = [{data0[h].data3[i].reserve2:X8}]");
+                            fp.WriteLine($"value6             = [{data0[h].data3[i].address4:X8}]");
                             fp.WriteLine("");
                         }
                     }

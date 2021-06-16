@@ -148,7 +148,7 @@
 			public fltd_data0 parent;
 
 			public byte idk0;
-			public byte idk1;
+			public byte count_addr1;
 			public byte idk2; // 0x0
 			public byte idk3;
 			public float[] value0;
@@ -160,11 +160,14 @@
 			public uint address2; // go to reserve
 			public uint name_address1; // go name address address (relation??)
 
-			public uint value5; // 0x6401
-			public uint value6; // 0x10
+			public byte hasSecondName;
+			public byte value5;
+			public ushort reserve2;
+			public uint address4; // 0x10
 
 			public string name0;
 			public string name1;
+			public byte[] unknown;
 
 			public fltd_data3(BinaryIOHelper fp, fltd_data0 parent)
 			{
@@ -172,7 +175,7 @@
 				value0 = new float[0xe];
 
 				idk0 = fp.ReadUInt8();
-				idk1 = fp.ReadUInt8();
+				count_addr1 = fp.ReadUInt8();
 				idk2 = fp.ReadUInt8();
 				idk3 = fp.ReadUInt8();
 
@@ -185,14 +188,28 @@
 				address1 = fp.ReadUInt32();
 				address2 = fp.ReadUInt32();
 				name_address1 = fp.ReadUInt32();
-				value5 = fp.ReadUInt32();
-				value6 = fp.ReadUInt32();
+				hasSecondName = fp.ReadUInt8();
+				value5 = fp.ReadUInt8();
+				reserve2 = fp.ReadUInt16();
+				address4 = fp.ReadUInt32();
 
 				fp.SkipSeek((int)name_address0);
 				name0 = fp.ReadAscii();
-				fp.SkipSeek((int)name_address1);
-				fp.SkipSeek((int)fp.ReadUInt32());
-				name1 = fp.ReadAscii();
+				if (hasSecondName == 1)
+				{
+					fp.SkipSeek((int)name_address1);
+					fp.SkipSeek((int)fp.ReadUInt32());
+					name1 = fp.ReadAscii();
+				}
+				else
+					name1 = "";
+
+				unknown = new byte[count_addr1];
+				fp.SkipSeek((int)address1);
+				for (int i = 0; i < count_addr1; i++)
+                {
+					unknown[i] = fp.ReadUInt8();
+                }
 			}
 
 			static public int GetMyDataSize()

@@ -44,9 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryIOHelper.cs" />
-    <Compile Include="DumpData.cs" />
+    <Compile Include="FLTD\DumpData.cs" />
+    <Compile Include="FLTD\SaveClassicFormat.cs" />
+    <Compile Include="FLTD\SaveNGSFormat.cs" />
     <Compile Include="FLTD_Classic_Struct.cs" />
-    <Compile Include="FLTD.cs" />
+    <Compile Include="FLTD\FLTD.cs" />
+    <Compile Include="FLTD_Common.cs" />
     <Compile Include="NIFL_Struct.cs" />
     <Compile Include="FLTD_NGS_Struct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
