@@ -26,7 +26,7 @@ namespace FLTD_lib
 		}
 		public void SaveFile(String path,bool format/*unused for a while*/)
 		{
-			using (BinaryIOHelper fp = new BinaryIOHelper(new FileStream(path, FileMode.Open, FileAccess.Write), false))
+			using (BinaryIOHelper fp = new BinaryIOHelper(new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write), false))
 			{
 				fp.SetSkip(mStNIFL.mNIFL.rel0_offset);
 				if (data_array.IsNGS() == true)

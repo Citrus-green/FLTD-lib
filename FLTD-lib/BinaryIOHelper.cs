@@ -73,6 +73,13 @@ namespace FLTD_lib
         {
             fs.WriteByte(b);
         }
+        public void WriteUInt16(ushort s)
+        {
+            byte[] buf = BitConverter.GetBytes(s);
+            if (littleEdian)
+                Array.Reverse(buf);
+            fs.Write(buf, 0, sizeof(ushort));
+        }
         public void WriteUInt32(uint i)
         {
             byte[] buf = BitConverter.GetBytes(i);
