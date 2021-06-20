@@ -261,7 +261,7 @@
 			public uint reserve3;
 			public uint fltd_data12_addr; // addr6
 
-			public fltd_data7[] data7;
+			public byte[] data7;
 			public fltd_data8[] data8;
 			public fltd_data9[] data9;
 			public fltd_data10[] data10;
@@ -294,11 +294,11 @@
 				reserve3 = fp.ReadUInt32();
 				fltd_data12_addr = fp.ReadUInt32();
 
-				data7 = new fltd_data7[this.count_addr0];
-				for (int i = 0; i < this.count_addr0; i++)
+				data7 = new byte[this.parent.count_fltd_data13];
+				fp.SkipSeek((int)this.fltd_data7_addr);
+				for (int i = 0; i < this.parent.count_fltd_data13; i++)
 				{
-					fp.SkipSeek((int)fltd_data7_addr + fltd_data7.GetMyDataSize() * i);
-					data7[i] = new fltd_data7(fp, this);
+					data7[i] = fp.ReadUInt8();
 				}
 
 				data8 = new fltd_data8[this.count_addr1];
@@ -351,23 +351,6 @@
 			static public int GetMyDataSize()
 			{
 				return sizeof(uint) * 3;
-			}
-		};
-
-		internal class fltd_data7
-		{
-			public fltd_data5 parent;
-
-			public uint value;
-
-			public fltd_data7(BinaryIOHelper fp, fltd_data5 parent)
-			{
-				this.parent = parent;
-				value = fp.ReadUInt32();
-			}
-			static public int GetMyDataSize()
-			{
-				return sizeof(uint);
 			}
 		};
 

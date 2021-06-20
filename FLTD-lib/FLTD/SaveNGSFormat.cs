@@ -125,7 +125,7 @@ namespace FLTD_lib
 				foreach (NGS.fltd_data5 data5 in data1.data5)
 				{
 					data5.fltd_data8_addr = (uint)fp.Tell() - 0x20;
-					for (int i = 0; i < data5.count_addr1; i++)
+					for (int i = 0; i < data5.data8.Length; i++)
 					{
 						NGS.fltd_data8 data8 = data5.data8[i];
 						fp.WriteUInt8(data8.idk0);
@@ -140,7 +140,7 @@ namespace FLTD_lib
 						fp.WriteUInt32(data8.value1);
 					}
 					data5.fltd_data9_addr = (uint)fp.Tell() - 0x20;
-					for (int i = 0; i < data5.count_addr2; i++)
+					for (int i = 0; i < data5.data9.Length; i++)
 					{
 						NGS.fltd_data9 data9 = data5.data9[i];
 						fp.WriteUInt8(data9.idk0);
@@ -176,9 +176,10 @@ namespace FLTD_lib
 					data5.fltd_data7_addr = (uint)fp.Tell() - 0x20;
 					for (int i = 0; i < data5.data7.Length; i++)
 					{
-						NGS.fltd_data7 data7 = data5.data7[i];
-						fp.WriteUInt32(data7.value);
+						fp.WriteUInt8(0x3);
 					}
+					while (fp.Tell() % 4 != 0)
+						fp.WriteUInt8(0x0);
 
 					data5.data12.fltd_data13_addr = (uint)fp.Tell() - 0x20;
 					foreach (NGS.fltd_data13 data13 in data5.data12.data13)
@@ -245,12 +246,12 @@ namespace FLTD_lib
 				for (int i = 0; i < data1.data4.Length; i++)
 				{
 					NGS.fltd_data4 data4 = data1.data4[i];
-					fp.WriteUInt8(0x03);
+					fp.WriteUInt8((byte)((byte)i * 4));
 				}
 				while (fp.Tell() % 4 != 0)
 					fp.WriteUInt8(0x0);
 			}
-			data_array.fltd_data1_addr = (uint)fp.Tell() - 0x20;
+			/*data_array.fltd_data1_addr = (uint)fp.Tell() - 0x20;
 			for (int i = 0; i < data_array.data1.Length; i++)
 			{
 				NGS.fltd_data1 data1 = (NGS.fltd_data1)data_array.data1[i];
@@ -286,7 +287,7 @@ namespace FLTD_lib
 			fp.WriteUInt32(data_array.fltd_data1_addr);
 			fp.WriteUInt32(0x0);
 			fp.WriteUInt32(data_array.fltd_data2_addr);
-
+			*/
 			for (int i = 0; i < NameFullList.Count; i++)
 			{
 				temp = fp.Tell() - 0x20;

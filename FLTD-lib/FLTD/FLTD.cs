@@ -14,26 +14,42 @@ namespace FLTD_lib
 		{
 
 		}
-		public void LoadFile(String path)
+		public bool LoadFile(String path)
 		{
-			using (var fp = new BinaryIOHelper(new FileStream(path, FileMode.Open, FileAccess.Read), false))
+			try
 			{
-				mStNIFL = new StNIFL(fp);
-				fp.SetSkip(mStNIFL.mNIFL.rel0_offset);
-				fp.SkipSeek((int)mStNIFL.mREL0.entry);
-				data_array = new StFltd(fp);
+				using (var fp = new BinaryIOHelper(new FileStream(path, FileMode.Open, FileAccess.Read), false))
+				{
+					mStNIFL = new StNIFL(fp);
+					fp.SetSkip(mStNIFL.mNIFL.rel0_offset);
+					fp.SkipSeek((int)mStNIFL.mREL0.entry);
+					data_array = new StFltd(fp);
+				}
 			}
+			catch (Exception e)
+			{
+				return false;
+			}
+			return true;
 		}
-		public void SaveFile(String path,bool format/*unused for a while*/)
+		public bool SaveFile(String path,bool format/*unused for a while*/)
 		{
-			using (BinaryIOHelper fp = new BinaryIOHelper(new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write), false))
+			try
 			{
-				fp.SetSkip(mStNIFL.mNIFL.rel0_offset);
-				if (data_array.IsNGS() == true)
-					SaveNGSFormat(fp);
-				else
-					SaveClassicFormat(fp);
+				using (BinaryIOHelper fp = new BinaryIOHelper(new FileStream(path, FileMode.Create, FileAccess.Write), false))
+				{
+					fp.SetSkip(mStNIFL.mNIFL.rel0_offset);
+					if (data_array.IsNGS() == true)
+						SaveNGSFormat(fp);
+					else
+						SaveClassicFormat(fp);
+				}
 			}
+			catch (Exception e)
+			{
+				return false;
+			}
+			return true;
 		}
 		public string[] GetAssignList()
 		{
