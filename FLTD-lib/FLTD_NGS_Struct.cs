@@ -74,9 +74,9 @@
 			public uint fltd_data6_addr; // addr2
 
 			public uint value0; // 0x1
-			public uint value1; // 0x10
+			public uint address3; // 0x10
 
-			public fltd_data4[] data4;
+			public byte[] data4;
 			public fltd_data5[] data5;
 			public fltd_data6 data6;
 
@@ -95,13 +95,13 @@
 				fltd_data5_addr = fp.ReadUInt32();
 				fltd_data6_addr = fp.ReadUInt32();
 				value0 = fp.ReadUInt32();
-				value1 = fp.ReadUInt32();
+				address3 = fp.ReadUInt32();
 
-				data4 = new fltd_data4[this.count_addr0];
+				data4 = new byte[this.count_addr0];
+				fp.SkipSeek((int)fltd_data4_addr);
 				for (int i = 0; i < this.count_addr0; i++)
 				{
-					fp.SkipSeek((int)fltd_data4_addr + fltd_data4.GetMyDataSize() * i);
-					data4[i] = new fltd_data4(fp, this);
+					data4[i] = fp.ReadUInt8();
 				}
 				data5 = new fltd_data5[this.count_addr1];
 				for (int i = 0; i < this.count_addr1; i++)
@@ -218,23 +218,6 @@
 			}
 		};
 
-		internal class fltd_data4
-		{
-			public fltd_data1 parent;
-
-			public byte value;
-
-			public fltd_data4(BinaryIOHelper fp, fltd_data1 parent)
-			{
-				this.parent = parent;
-				value = fp.ReadUInt8();
-			}
-			static public int GetMyDataSize()
-			{
-				return sizeof(byte);
-			}
-		};
-
 		internal class fltd_data5
 		{
 			public fltd_data1 parent;
@@ -246,7 +229,7 @@
 			public byte idk1;
 			public byte idk2;
 			public byte idk3;
-			public byte count_addr0; // data type??
+			public byte idk4; // data type??
 			public byte count_addr1; // and addr0??
 			public byte count_addr2; // and addr5??
 			public byte count_addr3;
@@ -279,7 +262,7 @@
 				idk1 = fp.ReadUInt8();
 				idk2 = fp.ReadUInt8();
 				idk3 = fp.ReadUInt8();
-				count_addr0 = fp.ReadUInt8();
+				idk4 = fp.ReadUInt8();
 				count_addr1 = fp.ReadUInt8();
 				count_addr2 = fp.ReadUInt8();
 				count_addr3 = fp.ReadUInt8();

@@ -169,8 +169,8 @@ namespace FLTD_lib
 						fp.WriteUInt32(data10.value0);
 					}
 					data5.fltd_data11_addr = (uint)fp.Tell() - 0x20;
-					foreach(float f in data5.data11)
-						fp.WriteFloat(f);
+					for(int i=0;i< data5.data11.Length;i++)
+						fp.WriteFloat(((float)data5.data11.Length-i)/ data5.data11.Length);
 
 					data5.fltd_data7_addr = (uint)fp.Tell() - 0x20;
 					for (int i = 0; i < data5.data7.Length; i++)
@@ -218,7 +218,7 @@ namespace FLTD_lib
 					fp.WriteUInt8(data5.idk1);
 					fp.WriteUInt8(data5.idk2);
 					fp.WriteUInt8(data5.idk3);
-					fp.WriteUInt8((byte)data5.data7.Length);
+					fp.WriteUInt8(data5.idk4);
 					fp.WriteUInt8((byte)data5.data8.Length);
 					fp.WriteUInt8((byte)data5.data9.Length);
 					fp.WriteUInt8((byte)data5.data10.Length);
@@ -239,18 +239,21 @@ namespace FLTD_lib
 				NGS.fltd_data6 data6 = data1.data6;
 				fp.WriteUInt32(0x0);
 				fp.WriteFloat(1.0f);
-				fp.WriteUInt32(data6.value1);
+				PaddingOffset.Add(fp.Tell() - 0x20);
+				fp.WriteUInt32(0);
 
 				data1.fltd_data4_addr = (uint)fp.Tell() - 0x20;
-				for (int i = 0; i < data1.data4.Length; i++)
+				if (data1.data4.Length > 1)
 				{
-					NGS.fltd_data4 data4 = data1.data4[i];
-					fp.WriteUInt8((byte)((byte)i * 4));
+					for (int i = 0; i < data1.data4.Length; i++)
+					{
+						fp.WriteUInt8((byte)(i * 4));
+					}
 				}
 				while (fp.Tell() % 4 != 0)
 					fp.WriteUInt8(0x0);
 			}
-			/*data_array.fltd_data1_addr = (uint)fp.Tell() - 0x20;
+			data_array.fltd_data1_addr = (uint)fp.Tell() - 0x20;
 			for (int i = 0; i < data_array.data1.Length; i++)
 			{
 				NGS.fltd_data1 data1 = (NGS.fltd_data1)data_array.data1[i];
@@ -263,9 +266,14 @@ namespace FLTD_lib
 				fp.WriteUInt8(data1.idk6);
 				fp.WriteUInt8(data1.idk7);
 
+				if (data1.data4.Length == 1)
+					PaddingOffset.Add(fp.Tell()-0x20);
 				fp.WriteUInt32(data1.fltd_data4_addr);
 				fp.WriteUInt32(data1.fltd_data5_addr);
 				fp.WriteUInt32(data1.fltd_data6_addr);
+
+				fp.WriteUInt32(data1.value0);
+				fp.WriteUInt32(data1.address3);
 			}
 			data_array.fltd_data2_addr = (uint)fp.Tell() - 0x20;
 			fp.WriteUInt32(0x0);
@@ -273,7 +281,7 @@ namespace FLTD_lib
 			fp.WriteUInt32(0);
 			fp.WriteUInt32(0x0);
 			fp.WriteUInt32(0x10);
-
+			
 			temp = fp.Tell();
 			fp.Seek((int)FLTD_OFFSET,SeekOrigin.Begin);
 			fp.WriteUInt32((uint)temp - 0x20);
@@ -286,17 +294,46 @@ namespace FLTD_lib
 			fp.WriteUInt32(data_array.fltd_data1_addr);
 			fp.WriteUInt32(0x0);
 			fp.WriteUInt32(data_array.fltd_data2_addr);
-			*/
+			
 			for (int i = 0; i < NameFullList.Count; i++)
 			{
+				bool flag = false;
+				for (int j = 0; j < i; j++)
+				{
+					if (NameFullList[i] == NameFullList[j])
+					{
+						temp = fp.Tell() - 0x20;
+						fp.SkipSeek((int)NameOffsetFullList[i]);
+						fp.WriteUInt32((uint)NameOffsetFullList[j]);
+						fp.SkipSeek((int)temp);
+						flag = !flag;
+						break;
+					}
+				}
+                if (!flag) { 
 				temp = fp.Tell() - 0x20;
 				fp.SkipSeek((int)NameOffsetFullList[i]);
 				fp.WriteUInt32((uint)temp);
 				fp.SkipSeek((int)temp);
+				NameOffsetFullList[i] = temp;
 				fp.WriteAscii(NameFullList[i]);
-				for (int j = 0; j < 4 - (fp.Tell() % 4); j++)
-					fp.WriteUInt8(0);
+				fp.WriteUInt8(0x0);
+				while (fp.Tell() % 0x4 != 0)
+					fp.WriteUInt8(0x0);
+				}
 			}
+
+			// unknown data
+			fp.WriteUInt32(0x0);
+			fp.WriteUInt32(0x1);
+			fp.WriteUInt8(0x1);
+			for (int i=1;i<=0x80;i*=2)
+				fp.WriteUInt8((byte)i);
+			while (fp.Tell() % 0x4 != 0)
+				fp.WriteUInt8(0x0);
+			for (int i = 1; i <= 0x40; i*=2)
+				fp.WriteUInt32((byte)i);
+			fp.WriteUInt32(0x01100801);
 
 			temp = fp.Tell();
 			fp.Seek((int)REL0_CONTENTS_SIZE,SeekOrigin.Begin);
