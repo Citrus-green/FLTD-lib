@@ -169,9 +169,8 @@ namespace FLTD_lib
 						fp.WriteUInt32(data10.value0);
 					}
 					data5.fltd_data11_addr = (uint)fp.Tell() - 0x20;
-					NGS.fltd_data11 data11 = data5.data11;
-					fp.WriteUInt32(data11.value0);
-					fp.WriteUInt32(data11.value1);
+					foreach(float f in data5.data11)
+						fp.WriteFloat(f);
 
 					data5.fltd_data7_addr = (uint)fp.Tell() - 0x20;
 					for (int i = 0; i < data5.data7.Length; i++)

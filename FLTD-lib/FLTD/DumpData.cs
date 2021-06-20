@@ -213,6 +213,15 @@ namespace FLTD_lib
                             fp.Write("\n");
                         fp.Write($"{data1[i].data5[j].data7[k]:X2} ");
                     }
+                    fp.Write("\n\n");
+                    fp.WriteLine($"data11             =");
+                    for (int k = 0; k < data1[i].data5[j].data11.Length; k++)
+                    {
+                        if (k > 0 && k % 0x4 == 0)
+                            fp.Write("\n");
+                        fp.Write($"{data1[i].data5[j].data11[k]:F6} ");
+                    }
+                    fp.Write("\n\n");
                     fp.WriteLine("");
                 }
             }
@@ -292,20 +301,6 @@ namespace FLTD_lib
                         fp.WriteLine($"reserve              = [{data1[i].data5[j].data10[k].reserve1:X8}]");
                         fp.WriteLine($"reserve              = [{data1[i].data5[j].data10[k].reserve2:X8}]");
                         fp.WriteLine($"value                = [{data1[i].data5[j].data10[k].value0:X8}]");
-                        fp.WriteLine("");
-                    }
-                }
-            }
-            fp.WriteLine("");
-            fp.WriteLine("**** data11 ****\n");
-            for (int i = 0; i < data1.Length; i++)
-            {
-                for (int j = 0; j < data1[i].data5.Length; j++)
-                {
-                    {
-                        fp.WriteLine($"real address         = [{mStNIFL.mNIFL.rel0_offset + data1[i].data5[j].fltd_data11_addr:X8}]\n");
-                        fp.WriteLine($"value                = [{data1[i].data5[j].data11.value0:X8}]");
-                        fp.WriteLine($"value                = [{data1[i].data5[j].data11.value1:X8}]");
                         fp.WriteLine("");
                     }
                 }
