@@ -146,7 +146,9 @@ namespace FLTD_lib
                     fp.WriteLine($"value0             =");
                     for (int k = 0; k < 0xe; k++)
                     {
-                        fp.WriteLine($"{data0[h].data3[i].value0[k]}");
+                        if (k > 0 && k % 4 == 0)
+                            fp.Write("\n");
+                        fp.Write($"{data0[h].data3[i].value0[k]:F6} ");
                     }
                     fp.WriteLine("");
                     fp.WriteLine($"reserve0           = [{data0[h].data3[i].reserve0:X8}]");
