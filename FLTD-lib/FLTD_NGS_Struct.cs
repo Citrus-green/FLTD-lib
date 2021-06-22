@@ -163,7 +163,7 @@
 			public byte hasSecondName;
 			public byte value5;
 			public ushort reserve2;
-			public uint address4; // 0x10
+			public uint address4;
 
 			public string name0;
 			public string name1;

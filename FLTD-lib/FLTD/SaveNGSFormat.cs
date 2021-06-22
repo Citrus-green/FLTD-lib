@@ -34,12 +34,15 @@ namespace FLTD_lib
 			fp.WriteUInt32(0);
 			fp.WriteUInt32(0x0);
 
-			// FLTD
-			fp.WriteUInt32(0xffffffff);
-
+			List<long> NOF0Data = new List<long>();
 			List<long> PaddingOffset = new List<long>();
+			List<long> EsPaddingOffset = new List<long>();
 			List<string> NameFullList = new List<string>();
 			List<long> NameOffsetFullList = new List<long>();
+
+			// FLTD
+			NOF0Data.Add(fp.Tell() - 0x20);
+			fp.WriteUInt32(0xffffffff);
 
 			foreach (NGS.fltd_data0 data0 in data_array.data0)
 			{
@@ -48,6 +51,7 @@ namespace FLTD_lib
 				{
 					NameFullList.Add(data0.nameList[i]);
 					NameOffsetFullList.Add(fp.Tell() - 0x20);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(0);
 				}
 				foreach (NGS.fltd_data3 data3 in data0.data3)
@@ -62,12 +66,13 @@ namespace FLTD_lib
 					}
 
 					while (fp.Tell() % 4 != 0)
-						fp.WriteUInt8(0);
+						fp.WriteUInt8(0x0);
 					if (data3.hasSecondName == 1)
 					{
 						data3.name_address1 = (uint)fp.Tell() - 0x20;
 						NameFullList.Add(data3.name1);
 						NameOffsetFullList.Add(fp.Tell() - 0x20);
+						NOF0Data.Add(fp.Tell() - 0x20);
 						fp.WriteUInt32(0);
 					}
 				}
@@ -87,23 +92,28 @@ namespace FLTD_lib
 					fp.WriteUInt32(data3.reserve1);
 					NameFullList.Add(data3.name0);
 					NameOffsetFullList.Add(fp.Tell() - 0x20);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(0);
 					if (data3.count_addr1 == 0)
 					{
 						PaddingOffset.Add(fp.Tell() - 0x20);
 					}
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data3.address1);
 					PaddingOffset.Add(fp.Tell() - 0x20);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(0);
 					if (data3.hasSecondName == 0)
 					{
 						PaddingOffset.Add(fp.Tell());
 					}
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data3.name_address1);
 
 					fp.WriteUInt8(data3.hasSecondName);
 					fp.WriteUInt8(data3.value5);
 					fp.WriteUInt16(data3.reserve2);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(0x10);
 				}
 			}
@@ -115,10 +125,13 @@ namespace FLTD_lib
 				fp.WriteUInt8(data0.count_addr0);
 				fp.WriteUInt8(data0.count_addr1);
 				fp.WriteUInt8(0x0);
+				NOF0Data.Add(fp.Tell() - 0x20);
 				fp.WriteUInt32(data0.name_address_address);
+				NOF0Data.Add(fp.Tell() - 0x20);
 				fp.WriteUInt32(data0.fltd_data3_addr);
-				fp.WriteUInt32(data0.value0);
-				fp.WriteUInt32(data0.value1);
+				fp.WriteUInt32(0xFF);
+				NOF0Data.Add(fp.Tell() - 0x20);
+				fp.WriteUInt32(0x10);
 			}
 			foreach (NGS.fltd_data1 data1 in data_array.data1)
 			{
@@ -189,6 +202,7 @@ namespace FLTD_lib
 						}
 						fp.WriteUInt32(0x1);
 						fp.WriteUInt32(0x0);
+						NOF0Data.Add(fp.Tell() - 0x20);
 						fp.WriteUInt32(0x10);
 					}
 					data5.data12.fltd_data14_addr = (uint)fp.Tell() - 0x20;
@@ -198,40 +212,57 @@ namespace FLTD_lib
 						fp.WriteUInt32(data14.value1);
 						fp.WriteUInt32(data14.value2);
 						fp.WriteUInt32(0x0);
+						NOF0Data.Add(fp.Tell() - 0x20);
 						fp.WriteUInt32(0x10);
 					}
 					data5.fltd_data12_addr = (uint)fp.Tell() - 0x20;
 
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data5.data12.fltd_data13_addr);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data5.data12.fltd_data14_addr);
 					fp.WriteUInt32(0x0);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(0x10);
 				}
 				data1.fltd_data5_addr = (uint)fp.Tell() - 0x20;
 				for (int i = 0; i < data1.data5.Length; i++)
 				{
 					NGS.fltd_data5 data5 = data1.data5[i];
-					fp.WriteUInt32(data5.value0);
+					fp.WriteUInt32(0x3DCCCCCD);
 					fp.WriteUInt32(0x0);
-					fp.WriteUInt32(data5.value1);
-					fp.WriteUInt8(data5.idk0);
-					fp.WriteUInt8(data5.idk1);
+					fp.WriteUInt32(0x3F666666);
+					fp.WriteUInt8(0x20);
+					fp.WriteUInt8(0x1);
 					fp.WriteUInt8(data5.idk2);
 					fp.WriteUInt8(data5.idk3);
 					fp.WriteUInt8(data5.idk4);
 					fp.WriteUInt8((byte)data5.data8.Length);
 					fp.WriteUInt8((byte)data5.data9.Length);
 					fp.WriteUInt8((byte)data5.data10.Length);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data5.fltd_data7_addr);
 					fp.WriteUInt32(0x0);
 					fp.WriteUInt32(0x0);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data5.fltd_data8_addr);
+					if(data5.data9.Length==0)
+						PaddingOffset.Add(fp.Tell() - 0x20);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data5.fltd_data9_addr);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data5.fltd_data10_addr);
-					PaddingOffset.Add(fp.Tell() - 0x20);
+
+					for (int j = 0; j < data5.parent.count_fltd_data13; j++)
+					{
+						PaddingOffset.Add(fp.Tell() - 0x20);
+					}
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(0);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data5.fltd_data11_addr);
 					fp.WriteUInt32(0x0);
+					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(data5.fltd_data12_addr);
 				}
 
@@ -239,7 +270,11 @@ namespace FLTD_lib
 				NGS.fltd_data6 data6 = data1.data6;
 				fp.WriteUInt32(0x0);
 				fp.WriteFloat(1.0f);
-				PaddingOffset.Add(fp.Tell() - 0x20);
+				for (int j = 0; j < data6.parent.count_fltd_data13*4; j++)
+				{
+					PaddingOffset.Add(fp.Tell() - 0x20);
+				}
+				NOF0Data.Add(fp.Tell() - 0x20);
 				fp.WriteUInt32(0);
 
 				data1.fltd_data4_addr = (uint)fp.Tell() - 0x20;
@@ -249,14 +284,19 @@ namespace FLTD_lib
 					{
 						fp.WriteUInt8((byte)(i * 4));
 					}
+                }
+                else
+                {
+					PaddingOffset.Add(-1);
 				}
 				while (fp.Tell() % 4 != 0)
 					fp.WriteUInt8(0x0);
+
+
 			}
 			data_array.fltd_data1_addr = (uint)fp.Tell() - 0x20;
-			for (int i = 0; i < data_array.data1.Length; i++)
+			foreach (NGS.fltd_data1 data1 in data_array.data1)
 			{
-				NGS.fltd_data1 data1 = (NGS.fltd_data1)data_array.data1[i];
 				fp.WriteUInt8(0x1f);
 				fp.WriteUInt8(data1.count_fltd_data13); // TODO
 				fp.WriteUInt8(data1.idk2);
@@ -267,19 +307,26 @@ namespace FLTD_lib
 				fp.WriteUInt8(data1.idk7);
 
 				if (data1.data4.Length == 1)
-					PaddingOffset.Add(fp.Tell()-0x20);
+					EsPaddingOffset.Add(fp.Tell() - 0x20);
+				NOF0Data.Add(fp.Tell() - 0x20);
 				fp.WriteUInt32(data1.fltd_data4_addr);
+				NOF0Data.Add(fp.Tell() - 0x20);
 				fp.WriteUInt32(data1.fltd_data5_addr);
+				NOF0Data.Add(fp.Tell() - 0x20);
 				fp.WriteUInt32(data1.fltd_data6_addr);
 
 				fp.WriteUInt32(data1.value0);
+				NOF0Data.Add(fp.Tell() - 0x20);
 				fp.WriteUInt32(data1.address3);
 			}
+
 			data_array.fltd_data2_addr = (uint)fp.Tell() - 0x20;
 			fp.WriteUInt32(0x0);
 			PaddingOffset.Add((uint)fp.Tell() - 0x20);
+			NOF0Data.Add(fp.Tell() - 0x20);
 			fp.WriteUInt32(0);
 			fp.WriteUInt32(0x0);
+			NOF0Data.Add(fp.Tell() - 0x20);
 			fp.WriteUInt32(0x10);
 			
 			temp = fp.Tell();
@@ -290,7 +337,9 @@ namespace FLTD_lib
 			fp.WriteUInt8((byte)data_array.data0.Length);
 			fp.WriteUInt8((byte)data_array.data1.Length);
 			fp.WriteUInt8(0x7);
+			NOF0Data.Add(fp.Tell() - 0x20);
 			fp.WriteUInt32(data_array.fltd_data0_addr);
+			NOF0Data.Add(fp.Tell() - 0x20);
 			fp.WriteUInt32(data_array.fltd_data1_addr);
 			fp.WriteUInt32(0x0);
 			fp.WriteUInt32(data_array.fltd_data2_addr);
@@ -313,7 +362,7 @@ namespace FLTD_lib
                 if (!flag) { 
 				temp = fp.Tell() - 0x20;
 				fp.SkipSeek((int)NameOffsetFullList[i]);
-				fp.WriteUInt32((uint)temp);
+					fp.WriteUInt32((uint)temp);
 				fp.SkipSeek((int)temp);
 				NameOffsetFullList[i] = temp;
 				fp.WriteAscii(NameFullList[i]);
@@ -339,21 +388,36 @@ namespace FLTD_lib
 			fp.Seek((int)REL0_CONTENTS_SIZE,SeekOrigin.Begin);
 			fp.WriteUInt32((uint)temp - 0x20);
 			fp.Seek((int)temp, SeekOrigin.Begin);
-			while (fp.Tell() % 0x10 != 0)
-				fp.WriteUInt8(0x0);
 
 			temp = fp.Tell();
 			fp.Seek((int)REL0_SIZE,SeekOrigin.Begin);
 			fp.WriteUInt32((uint)(temp - REL0_OFFSET));
 			fp.Seek((int)temp, SeekOrigin.Begin);
 
-			foreach (int i in PaddingOffset)
+			int EsCounter = 0;
+
+			for (int i = 0; i < PaddingOffset.Count; i++)
 			{
 				temp = fp.Tell() - 0x20;
-				fp.SkipSeek(i);
-				fp.WriteUInt32((uint)temp);
-				fp.SkipSeek((int)temp);
-				fp.WriteUInt32(0);
+				if (PaddingOffset[i] < 0)
+				{
+					fp.SkipSeek((int)EsPaddingOffset[EsCounter++]);
+					fp.WriteUInt32((uint)temp);
+					fp.SkipSeek((int)temp);
+					fp.WriteUInt32(0);
+				}
+				else
+				{
+					fp.SkipSeek((int)PaddingOffset[i]);
+					fp.WriteUInt32((uint)temp);
+					fp.SkipSeek((int)temp);
+					int index = i;
+					do
+					{
+						fp.WriteUInt32(0);
+					} while (++index < PaddingOffset.Count && PaddingOffset[i] == PaddingOffset[index]);
+					i = index - 1;
+				}
 			}
 
 			temp = fp.Tell();
@@ -362,9 +426,11 @@ namespace FLTD_lib
 			fp.Seek((int)temp, SeekOrigin.Begin);
 			NOF0_OFFSET = temp;
 			fp.WriteAscii("NOF0");
-			fp.WriteUInt32(0x4);//count*4+0x4
-			fp.WriteUInt32(0);//count
-			fp.WriteUInt32(0);
+			fp.WriteUInt32((uint)(0x4 + NOF0Data.Count*4)) ;//count*4+0x4
+			fp.WriteUInt32((uint)NOF0Data.Count);//count
+			NOF0Data.Sort();
+			foreach (uint address in NOF0Data)
+				fp.WriteUInt32(address);
 			while (fp.Tell() % 0x10 != 0)
 				fp.WriteUInt32(0x0);
 			temp = fp.Tell();

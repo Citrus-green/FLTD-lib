@@ -189,7 +189,7 @@ namespace FLTD_lib
                     fp.WriteLine($"idk1               = [{data1[i].data5[j].idk1:X8}]");
                     fp.WriteLine($"idk2               = [{data1[i].data5[j].idk2:X8}]");
                     fp.WriteLine($"idk3               = [{data1[i].data5[j].idk3:X8}]");
-                    fp.WriteLine($"data7 count(old)   = [{data1[i].data5[j].idk4:X8}]");
+                    fp.WriteLine($"idk4               = [{data1[i].data5[j].idk4:X8}]");
                     fp.WriteLine($"data8 count        = [{data1[i].data5[j].count_addr1:X8}]");
                     fp.WriteLine($"data9 count        = [{data1[i].data5[j].count_addr2:X8}]");
                     fp.WriteLine($"data10 count       = [{data1[i].data5[j].count_addr3:X8}]");
