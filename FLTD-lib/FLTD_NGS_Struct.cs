@@ -147,7 +147,7 @@
 		{
 			public fltd_data0 parent;
 
-			public byte idk0;
+			public byte format;
 			public byte count_addr1;
 			public byte idk2; // 0x0
 			public byte idk3;
@@ -174,7 +174,7 @@
 				this.parent = parent;
 				value0 = new float[0xe];
 
-				idk0 = fp.ReadUInt8();
+				format = fp.ReadUInt8();
 				count_addr1 = fp.ReadUInt8();
 				idk2 = fp.ReadUInt8();
 				idk3 = fp.ReadUInt8();
@@ -294,6 +294,7 @@
 				data9 = new fltd_data9[this.count_addr2];
 				for (int i = 0; i < this.count_addr2; i++)
 				{
+					
 					fp.SkipSeek((int)fltd_data9_addr + fltd_data9.GetMyDataSize() * i);
 					data9[i] = new fltd_data9(fp, this);
 				}

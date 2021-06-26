@@ -54,6 +54,8 @@ namespace FLTD_lib
 					NOF0Data.Add(fp.Tell() - 0x20);
 					fp.WriteUInt32(0);
 				}
+				if (data0.data3.Length == 0)
+					PaddingOffset.Add((uint)fp.Tell() - 0x20);
 				foreach (NGS.fltd_data3 data3 in data0.data3)
 				{
 					if (data3.count_addr1 > 0)
@@ -81,7 +83,7 @@ namespace FLTD_lib
 				{
 					NGS.fltd_data3 data3 = data0.data3[i];
 
-					fp.WriteUInt8(data3.idk0);
+					fp.WriteUInt8(data3.format);
 					fp.WriteUInt8(data3.count_addr1);
 					fp.WriteUInt8(data3.idk2);
 					fp.WriteUInt8(data3.idk3);
