@@ -1,9 +1,8 @@
 # FLTD-lib
-
+There is a bug in fltd_data5.  
 Maybe this is FLTD lib.  
-And specifications may change.  <-In this regard, I will probably use a wrapper structure.  
-You should wait for a while.  
-2021/June/13 update
+specifications may change, so you should wait for a while.  
+2021/June/26 update
 
 Development environment:  
 Visual Studio 2019
