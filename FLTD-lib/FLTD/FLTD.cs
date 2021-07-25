@@ -178,7 +178,9 @@ namespace FLTD_lib
 			}
 			return f;
 		}
-		public void SetConstrateFormat(int a, int b, byte format) => ((NGS.fltd_data0)data_array.data0[a]).data3[b].format = format;
+		public void SetConstrateFormat(int a, int b, byte format) {
+			((NGS.fltd_data0)data_array.data0[a]).data3[b].format = format; 
+		}
 		public void SetConstrateParam(int a, int b, float[] f, int c = 0)
 		{
 			if (this.IsNGS() == true)
@@ -197,7 +199,7 @@ namespace FLTD_lib
 						data3.value0[3] = f[2];
 						break;
 					case 3:
-						data3.value0[0] = f]0];
+						data3.value0[0] = f[0];
 						data3.value0[1] = f[1];
 						data3.value0[4] = f[2];
 						data3.value0[6] = f[3];

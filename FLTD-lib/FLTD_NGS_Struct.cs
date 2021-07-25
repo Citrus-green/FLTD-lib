@@ -222,9 +222,9 @@
 		{
 			public fltd_data1 parent;
 
-			public uint value0; // 0x3DCCCCCD
+			public uint spring;
 			public uint reserve0;
-			public uint value1; //0x3f666666
+			public uint registance;
 			public byte idk0;
 			public byte idk1;
 			public byte idk2;
@@ -255,9 +255,9 @@
 			public fltd_data5(BinaryIOHelper fp, fltd_data1 parent)
 			{
 				this.parent = parent;
-				value0 = fp.ReadUInt32();
+				spring = fp.ReadUInt32();
 				reserve0 = fp.ReadUInt32();
-				value1 = fp.ReadUInt32();
+				registance = fp.ReadUInt32();
 				idk0 = fp.ReadUInt8();
 				idk1 = fp.ReadUInt8();
 				idk2 = fp.ReadUInt8();

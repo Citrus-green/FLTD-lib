@@ -190,7 +190,7 @@ namespace FLTD_lib
 					data5.fltd_data7_addr = (uint)fp.Tell() - 0x20;
 					for (int i = 0; i < data5.data7.Length; i++)
 					{
-						fp.WriteUInt8(0x3);
+						fp.WriteUInt8(0x0);
 					}
 					while (fp.Tell() % 4 != 0)
 						fp.WriteUInt8(0x0);
@@ -231,10 +231,10 @@ namespace FLTD_lib
 				for (int i = 0; i < data1.data5.Length; i++)
 				{
 					NGS.fltd_data5 data5 = data1.data5[i];
-					fp.WriteUInt32(0x3DCCCCCD);
+					fp.WriteUInt32(data5.spring); //spring
 					fp.WriteUInt32(0x0);
-					fp.WriteUInt32(0x3F666666);
-					fp.WriteUInt8(0x20);
+					fp.WriteUInt32(data5.registance); //registance
+					fp.WriteUInt8(data5.idk0);
 					fp.WriteUInt8(0x1);
 					fp.WriteUInt8(data5.idk2);
 					fp.WriteUInt8(data5.idk3);

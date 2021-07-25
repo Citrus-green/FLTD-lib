@@ -182,9 +182,9 @@ namespace FLTD_lib
 
                     fp.WriteLine($"***** {i:X4}({i}) *****");
                     fp.WriteLine($"real address       = [{mStNIFL.mNIFL.rel0_offset + data1[i].fltd_data5_addr + j * NGS.fltd_data5.GetMyDataSize():X8}]\n");
-                    fp.WriteLine($"value0             = [{data1[i].data5[j].value0:X8}]");
+                    fp.WriteLine($"value0             = [{data1[i].data5[j].spring:X8}]");
                     fp.WriteLine($"reserve0           = [{data1[i].data5[j].reserve0:X8}]");
-                    fp.WriteLine($"value1             = [{data1[i].data5[j].value1:X8}]");
+                    fp.WriteLine($"value1             = [{data1[i].data5[j].registance:X8}]");
                     fp.WriteLine($"idk0               = [{data1[i].data5[j].idk0:X8}]");
                     fp.WriteLine($"idk1               = [{data1[i].data5[j].idk1:X8}]");
                     fp.WriteLine($"idk2               = [{data1[i].data5[j].idk2:X8}]");
